@@ -342,6 +342,7 @@
         "skills/config-gc",
         "skills/context-budget",
         "skills/delivery-gate",
+        "skills/fedskill",
         "skills/ecc-guide",
         "skills/ecc-recipes",
         "skills/growth-log",

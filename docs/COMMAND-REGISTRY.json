@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "totalCommands": 94,
+  "totalCommands": 95,
   "commands": [
     {
       "command": "aside",
@@ -101,7 +101,7 @@
     },
     {
       "command": "ecc-guide",
-      "description": "Navigate ECC's current agents, skills, commands, hooks, install profiles, and docs from the live repository surface.",
+      "description": "Navigate ECC's live surface — skills, commands, agents, hooks, rules, MCP connectors, install profiles — and get one canonical path plus a verify command back.",
       "type": "review",
       "primaryAgents": [],
       "allAgents": [],
@@ -205,6 +205,17 @@
       "allAgents": [],
       "skills": [],
       "path": "commands/feature-dev.md"
+    },
+    {
+      "command": "fedskill",
+      "description": "Query the FedSkill universal dictionary — definitions, methods, workflows, checklists, and stack playbooks for any project, routed to the right reference volume.",
+      "type": "planning",
+      "primaryAgents": [],
+      "allAgents": [],
+      "skills": [
+        "fedskill"
+      ],
+      "path": "commands/fedskill.md"
     },
     {
       "command": "flutter-build",
@@ -1031,7 +1042,7 @@
       "build": 2,
       "general": 10,
       "orchestration": 11,
-      "planning": 2,
+      "planning": 3,
       "refactoring": 1,
       "review": 15,
       "testing": 53
