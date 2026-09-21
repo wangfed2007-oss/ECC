@@ -1,93 +1,58 @@
 ---
-description: Navigate ECC's current agents, skills, commands, hooks, install profiles, and docs from the live repository surface.
+description: Navigate ECC's live surface — skills, commands, agents, hooks, rules, MCP connectors, install profiles — and get one canonical path plus a verify command back.
 ---
 
 # /ecc-guide
 
-Use this command as a conversational map of Everything Claude Code. It should help the user discover the right ECC surface for their task without dumping the entire README or stale catalog counts.
+Conversational map of Everything Claude Code. Backed by the `ecc-guide` skill,
+which owns the full routing, read-budget, and MCP-budget logic. Read
+`skills/ecc-guide/SKILL.md` and follow it; this file is the entry point only.
 
 ## Usage
 
 ```text
-/ecc-guide
-/ecc-guide setup
-/ecc-guide skills
-/ecc-guide commands
-/ecc-guide hooks
-/ecc-guide install
-/ecc-guide find: <query>
-/ecc-guide <feature-or-file-name>
+/ecc-guide                     # compact menu
+/ecc-guide setup | install     # install paths, profiles, scopes
+/ecc-guide skills | commands | agents | hooks | rules | mcp
+/ecc-guide find: <query>       # search every surface
+/ecc-guide <feature-or-file>   # resolve one component
 ```
 
 ## Operating Rules
 
-1. Read current repository files before answering when the checkout is available.
-2. Prefer current filesystem/catalog data over hard-coded counts.
-3. Keep the first answer short, then offer specific drill-down paths.
-4. Link users to canonical files instead of copying long sections.
-5. Do not invent commands, skills, agents, or install profiles that are not present.
+1. Answer from current files, never memory — no hardcoded counts or feature lists.
+2. Stay on the lowest read tier the question needs (T0 conceptual → T3 full catalog).
+3. Lead with the answer: surface, canonical path, verify command, one next action.
+4. Never invent a component; check the filesystem before claiming it exists.
+5. Advisory only — resolve and explain, never install or run the named surface.
 
-## What To Inspect
+## Where To Look
 
-Use these files as the canonical map:
+| Surface | Canonical location |
+|---|---|
+| Skills | `skills/*/SKILL.md` |
+| Commands | `commands/*.md` |
+| Agents | `agents/*.md` |
+| Hooks | `hooks/hooks.json`, `hooks/README.md`, `scripts/hooks/` |
+| Rules | `rules/` |
+| MCP connectors | `mcp-configs/mcp-servers.json`, `docs/MCP-CONNECTOR-POLICY.md` |
+| Install profiles | `manifests/install-*.json`, `README.md` |
+| Live catalog | `node scripts/ci/catalog.js --json` |
 
-- `README.md` for install paths, reset/uninstall guidance, and high-level positioning
-- `AGENTS.md` for contributor and project-structure guidance
-- `agent.yaml` for exported agent and command surface
-- `commands/` for maintained slash-command shims
-- `skills/*/SKILL.md` for reusable skill workflows
-- `agents/*.md` for delegated agent roles
-- `hooks/README.md` and `hooks/hooks.json` for hook behavior
-- `manifests/install-*.json` for selective install modules, components, and profiles
-- `scripts/ci/catalog.js --json` for live catalog counts when running inside ECC
+## Modes
 
-## Response Patterns
+- **No argument** — compact menu: install, pick skills, commands vs skills,
+  agents and delegation, hooks and safety, MCP budget, troubleshooting. Then ask
+  what they want next.
+- **Topic** — 3-6 bullets on the current surface, the canonical directory, one
+  verify command. No exhaustive lists unless asked.
+- **`find: <query>`** — `rg` across skills, commands, agents, rules, docs; group
+  by surface, strongest match first, one next action each.
+- **Feature name** — exact-path lookup first (`skills/<n>/SKILL.md`,
+  `commands/<n>.md`, `agents/<n>.md`), then `rg`. Explain what it does, when to
+  use it, and which file is canonical.
 
-### No Arguments
+## Related
 
-Give a compact menu:
-
-- setup and install
-- choosing skills
-- command compatibility shims
-- agents and delegation
-- hooks and safety
-- troubleshooting an install
-- finding a specific feature
-
-Then ask what they want to do next.
-
-### Topic Lookup
-
-For topics like `skills`, `commands`, `hooks`, `install`, or `agents`:
-
-1. Summarize the current surface in 3-6 bullets.
-2. Point to the canonical directories/files.
-3. Suggest one or two commands that can verify the state.
-4. Avoid exhaustive lists unless the user asks for one.
-
-### Search Mode
-
-For `find: <query>`:
-
-1. Search the relevant files with `rg`.
-2. Group results by surface: skills, commands, agents, rules, docs, hooks.
-3. Return the strongest matches first with file paths.
-4. Recommend the next action for each match.
-
-### Feature Lookup
-
-For a specific feature name:
-
-1. Check exact paths first, such as `skills/<name>/SKILL.md`, `commands/<name>.md`, and `agents/<name>.md`.
-2. If exact lookup fails, search with `rg`.
-3. Explain what the feature does, when to use it, and what file is canonical.
-4. Mention adjacent features only when they reduce confusion.
-
-## Related Commands
-
-- `/project-init` for stack-aware ECC onboarding of a target project
-- `/harness-audit` for deterministic repo readiness scoring
-- `/skill-health` for skill quality checks
-- `/skill-create` for extracting a new skill from local git history
-- `/security-scan` for Claude/OpenCode configuration security review
+`/project-init` · `/harness-audit` · `/skill-health` · `/skill-create` ·
+`/security-scan` · `ecc-recipes` (pipelines) · `configure-ecc` (install wizard)
