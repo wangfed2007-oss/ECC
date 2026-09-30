@@ -9,7 +9,7 @@ A default connector earns its slot only if both hold:
 1. **Universal** — it applies to essentially every user of a coding agent, on every harness ECC targets.
 2. **MCP beats a CLI/API wrapped in a skill** — the job genuinely needs what MCP provides: interactive session state, streaming, an auth handshake, or structured browsing. Stateless request/response work is a skill, not a server. Tool schemas load into every session; each default connector taxes every user's context window whether they use it or not.
 
-The default set stays well under ten. In practice the 2026 field default across serious harnesses is zero to two connectors plus native built-ins.
+The default set stays well under ten. In practice the 2027 field default across serious harnesses is zero to two connectors plus native built-ins, and the pressure is still downward: every capability a harness absorbs natively (search, memory, extended thinking, browser control) retires another server that used to look essential.
 
 ## Current default set
 
@@ -29,6 +29,22 @@ The default set stays well under ten. In practice the 2026 field default across 
 | `sequential-thinking` | drop entirely | Native extended thinking in every modern harness. The server wrapped no external system — a prompting pattern dressed as a connector. |
 
 All six remain available as opt-in entries in `mcp-configs/mcp-servers.json` for users who want them.
+
+## 2027 re-affirmation
+
+Re-checked against the current harness field. The June 2026 verdicts stand, and
+the case for each has strengthened rather than weakened:
+
+- Harness-native search, memory, and extended thinking are now table stakes, so
+  `exa`, `memory`, and `sequential-thinking` have even less to justify.
+- Vendors keep moving agent workflows off MCP and onto CLI surfaces where the
+  value is one-shot rather than session-held (`playwright`, `github`).
+- Tool-schema tax is the binding constraint. A default connector spends context
+  in every session, including the overwhelming majority that never call it.
+
+The default set is therefore unchanged for 2027: `chrome-devtools` only. New
+candidates must clear both prongs of the rule *and* state their per-session
+schema cost in the PR that proposes them.
 
 ## Opt-out
 

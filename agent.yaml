@@ -179,6 +179,7 @@ commands:
   - evolve
   - fastapi-review
   - feature-dev
+  - fedskill
   - flutter-build
   - flutter-review
   - flutter-test
